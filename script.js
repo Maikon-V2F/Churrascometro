@@ -5,6 +5,7 @@
 // Crianças valem por 0,5
 
 let inputAdultos = document.getElementById("adultos");
+let inputAdultosnb = document.getElementById("adultosnb");
 let inputCriancas = document.getElementById("criancas");
 let inputDuracao = document.getElementById("duracao");
 
@@ -12,18 +13,19 @@ let resultado = document.getElementById("resultado")
 
 function calcular(){
     let adultos = inputAdultos.value
+    let adultosnb = inputAdultosnb.value
     let criancas = inputCriancas.value
     let duracao = inputDuracao.value
-   
-    let totalcarne = carnepp(duracao) * adultos + (carnepp(duracao) / 2 * criancas)
+ 
+    let totalcarne = carnepp(duracao) * adultos + (carnepp(duracao) * adultosnb) + (carnepp(duracao) / 2 * criancas)
     let totalcerveja = cervejapp(duracao) * adultos
-    let totalbebida = bebidapp(duracao) * adultos + (bebidapp(duracao) / 2 * criancas)
+    let totalbebida = (bebidapp(duracao) / 3 * adultos) + (bebidapp(duracao) * adultosnb) + (bebidapp(duracao) / 2 * criancas)
 
-    resultado.innerHTML  = `<p>🥩: ${totalcarne}g de carne`
-    resultado.innerHTML += `<p>🍺: ${totalcerveja}ml de cerveja` 
-    resultado.innerHTML += `<p>🧃: ${totalbebida}ml de bebidas` 
-
-
+    resultado.innerHTML  = `<p>🥩: ${totalcarne / 1000}kg de carne`
+    resultado.innerHTML += `<p>🍺: ${Math.ceil(totalcerveja / 355)} latas de cerveja (355ml)` 
+    resultado.innerHTML += `<p>🧃: ${Math.ceil(totalbebida / 2000)} garrafas de refrigerante (2L)` 
+ 
+    
 }
 
 function carnepp(duracao){
@@ -36,9 +38,9 @@ function carnepp(duracao){
 
 function cervejapp(duracao){
     if(duracao >= 6){
-        return 2000
+        return 3550
     } else {
-        return 1200
+        return 2130
     }
 }
 
